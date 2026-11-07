@@ -36,6 +36,12 @@
                     Grid.Row="0"
                     Grid.Column="0" />
 
+            <Button x:Name="btnActualizar"
+                    Text="Actualizar Persona"
+                    Clicked="btnActualizar_Clicked"
+                    Grid.Row="0"
+                    Grid.Column="1" />
+
             <Label x:Name="lblStatusMessage"
                    TextColor="Red"
                    Grid.Row="1"
@@ -57,6 +63,7 @@
             <!-- SelectionMode="Single" permite seleccionar una persona de la lista -->
             <CollectionView x:Name="listaPersonas"
                             SelectionMode="Single"
+                            SelectionChanged="listaPersonas_SelectionChanged"
                             Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="2">

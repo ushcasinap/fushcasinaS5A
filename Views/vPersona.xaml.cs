@@ -20,6 +20,40 @@ public partial class vPersona : ContentPage
         lblStatusMessage.Text = App._personRepo.StatusMessage;
     }
 
+    // Al seleccionar una persona, su nombre pasa a la caja de texto para editarlo
+    private void listaPersonas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Models.Persona? persona = listaPersonas.SelectedItem as Models.Persona;
+
+        if (persona != null)
+        {
+            txtName.Text = persona.Name;
+        }
+    }
+
+    private void btnActualizar_Clicked(object sender, EventArgs e)
+    {
+        lblStatusMessage.Text = "";
+
+        // Persona seleccionada en la lista
+        Models.Persona? persona = listaPersonas.SelectedItem as Models.Persona;
+
+        if (persona == null)
+        {
+            lblStatusMessage.Text = "Seleccione una persona de la lista";
+            return;
+        }
+
+        // Actualiza solo la persona seleccionada (por su Id) con el nuevo nombre
+        App._personRepo.UpdatePerson(persona.Id, txtName.Text);
+        lblStatusMessage.Text = App._personRepo.StatusMessage;
+
+        // Limpiar y actualizar la lista
+        txtName.Text = "";
+        listaPersonas.SelectedItem = null;
+        listaPersonas.ItemsSource = App._personRepo.GetAllPerson();
+    }
+
     private async void btnEliminar_Clicked(object sender, EventArgs e)
     {
         lblStatusMessage.Text = "";
